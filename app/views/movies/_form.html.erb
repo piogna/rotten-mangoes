@@ -1,8 +1,8 @@
-<%= form_for @movie do |f| %>
+<%= form_for @movie, html: { multipart: true } do |f| %>
   <% if @movie.errors.any? %>
     <div>
       <%= pluralize(@movie.errors.count, "error") %> prevented this movie from being submitted:
-          
+      
       <ul>
         <% @movie.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -27,13 +27,10 @@
     <%= f.number_field :runtime_in_minutes %>
   </div>
   <div>
-    <%= f.label :poster_image_url %><br>
-    <%= f.text_field :poster_image_url %>
-  </div>
-  <div>
     <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
+  <div><%= f.file_field :poster %></div>
   <div>
     <%= f.submit "Submit" %>
   </div>
