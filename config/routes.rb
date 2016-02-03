@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   resources :movies do
+    get 'search', :on => :collection
     resources :reviews, only: [:new, :create]
   end
 

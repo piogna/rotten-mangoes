@@ -27,4 +27,22 @@ class Movie < ActiveRecord::Base
       errors.add(:release_date, "should be in the past") if release_date > Date.today
     end
   end
+
+  def self.query(params)
+    movies = self.all
+    params.each do |key, value|
+      unless key == "duration" || value == "" || value == 0
+        movies = movies.where("lower(#{key.to_s}) LIKE (?)", "%#{value.downcase}%")
+      end
+    end
+    case params[:duration].to_i
+    when 1
+      movies = movies.where("runtime_in_minutes < 90")
+    when 2
+      movies = movies.where("runtime_in_minutes BETWEEN 90 AND 120")
+    when 3
+      movies = movies.where("runtime_in_minutes > 120")
+    end
+    movies
+  end
 end

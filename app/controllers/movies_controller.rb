@@ -1,6 +1,12 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all
+    if params
+      params.except!(:utf8, :controller, :action, :commit)
+      @movies = Movie.query(params)
+    else
+      @movies = Movie.all
+    end
+
   end
 
   def show
@@ -39,6 +45,15 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     @movie.destroy
     redirect_to movies_path
+  end
+
+  def search
+    @select_options = [["Select from list", 0], ["Under 90 minutes", 1], ["Between 90 and 120 minutes", 2], ["Over 120 minutes", 3]]
+  end
+
+  def query
+    params.except!(:utf8, :controller, :action, :commit)
+    @movies = Movie.query(params)
   end
 
   protected
