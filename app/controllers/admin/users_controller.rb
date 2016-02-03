@@ -33,6 +33,7 @@ class Admin::UsersController < Admin::ApplicationController
   def destroy
     user = User.find(params[:id])
     email = user.email
+    UserMailer.goodbye_email(user).deliver_now
     user.destroy
     redirect_to admin_root_path, notice: "#{email} deleted sucessfully!"
   end
