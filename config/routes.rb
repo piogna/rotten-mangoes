@@ -1,16 +1,9 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-    resources :users, only: [:index]
-  end
-
-  namespace :admin do
     root 'application#index'
+    resources :users, only: [:index, :create, :delete, :destroy]
   end
-
-  get 'reviews/new'
-
-  get 'reviews/create'
 
   resources :users, only: [:new, :create]
 
