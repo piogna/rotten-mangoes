@@ -1,0 +1,16 @@
+<h1>Admin::Users#index</h1>
+<%=  paginate @users %>
+<table>
+  <th>Email</th>
+  <th>First</th>
+  <th>Last</th>
+  <th>Is admin?</th>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.firstname %></td>
+      <td><%= user.lastname %></td>
+      <td><%= user.admin? %></td>
+    </tr>
+  <% end %>
+</table>

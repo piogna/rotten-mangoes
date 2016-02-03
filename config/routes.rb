@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    resources :users, only: [:index]
+  end
+
+  namespace :admin do
+    root 'application#index'
+  end
+
   get 'reviews/new'
 
   get 'reviews/create'
