@@ -30,6 +30,13 @@ class Admin::UsersController < Admin::ApplicationController
     end
   end
 
+  def destroy
+    user = User.find(params[:id])
+    email = user.email
+    user.destroy
+    redirect_to admin_root_path, notice: "#{email} deleted sucessfully!"
+  end
+
   protected
   def user_params
     params.require(:user).permit(:email, :firstname, :lastname, :password,
